@@ -575,6 +575,7 @@ config PN544
 	help
 	  NXP PN544 Near Field Communication controller support.
 
+<<<<<<< HEAD
 
 config GENERIC_BLN
        bool "Generic BLN support for backlight notification"
@@ -595,5 +596,12 @@ config TOUCH_WAKE
        help
          Say Y here to enable Touch Wake
 
+=======
+config CUSTOM_VOLTAGE
+       bool "Support for Custom Voltage"
+       default y
+       help
+         Say Y here to enable Custom Voltage
+>>>>>>> e4b01c3... Added Custom Voltage version 1.
 
 endif # MISC_DEVICES
