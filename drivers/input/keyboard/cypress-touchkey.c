@@ -31,10 +31,10 @@
 
 #ifdef CONFIG_GENERIC_BLN
 #include <linux/bln.h>
+#endif
 
 #ifdef CONFIG_BLD
 #include <linux/bld.h>
-
 #endif
 
 #define SCANCODE_MASK		0x07
@@ -65,6 +65,7 @@ struct cypress_touchkey_devdata {
 
 #ifdef CONFIG_GENERIC_BLN
 static struct cypress_touchkey_devdata *blndevdata;
+#endif
 
 #ifdef CONFIG_BLD
 static struct cypress_touchkey_devdata *blddevdata;
@@ -447,6 +448,7 @@ static struct bln_implementation cypress_touchkey_bln = {
 	.enable = cypress_touchkey_enable_led_notification,
 	.disable = cypress_touchkey_disable_led_notification,
 };
+#endif
 
 #ifdef CONFIG_BLD
 static void cypress_touchkey_bld_disable(void)
@@ -569,6 +571,7 @@ static int cypress_touchkey_probe(struct i2c_client *client,
 #ifdef CONFIG_GENERIC_BLN
 	blndevdata = devdata;
 	register_bln_implementation(&cypress_touchkey_bln);
+#endif
     
 #ifdef CONFIG_BLD
 	blddevdata = devdata;
