@@ -682,9 +682,9 @@ static struct regulator_init_data herring_ldo16_data = {
 
 static struct regulator_init_data herring_ldo17_data = {
 	.constraints	= {
-		.name		= "VCC_2.2V_LCD",
-		.min_uV		= 2200000,
-		.max_uV		= 2200000,
+		.name		= "VCC_2.3V_LCD",
+		.min_uV		= 2300000,
+		.max_uV		= 2300000,
 		.apply_uV	= 1,
 		.always_on	= 1,
 		.valid_ops_mask = REGULATOR_CHANGE_STATUS,
