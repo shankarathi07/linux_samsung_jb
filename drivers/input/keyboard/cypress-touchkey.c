@@ -35,6 +35,7 @@
 
 #ifdef CONFIG_BLD
 #include <linux/bld.h>
+#endif
 
 #ifdef CONFIG_TOUCH_WAKE
 #include <linux/touch_wake.h>
@@ -73,6 +74,7 @@ static struct cypress_touchkey_devdata *blndevdata;
 
 #ifdef CONFIG_BLD
 static struct cypress_touchkey_devdata *blddevdata;
+#endif
 
 #ifdef CONFIG_TOUCH_WAKE
 static struct cypress_touchkey_devdata *touchwakedevdata;
@@ -184,85 +186,65 @@ static irqreturn_t touchkey_interrupt_thread(int irq, void *touchkey_devdata)
 			goto err;
 		}
 	}
-
-	if (devdata->has_legacy_keycode) {
+    if (devdata->has_legacy_keycode) {
 		scancode = (data & SCANCODE_MASK) - 1;
 		if (scancode < 0 || scancode >= devdata->pdata->keycode_cnt) {
 			dev_err(&devdata->client->dev, "%s: scancode is out of "
-				"range\n", __func__);
+                    "range\n", __func__);
 			goto err;
 		}
- 
-		input_report_key(devdata->input_dev,
-			devdata->pdata->keycode[scancode],
-			!(data & UPDOWN_EVENT_MASK));
-
-#if defined(CONFIG_TOUCH_WAKE) || defined(CONFIG_BLD)
-		if (!(data & UPDOWN_EVENT_MASK))
-		    {
-#ifdef CONFIG_BLD			
-			touchkey_pressed();
-
-
+        
 #ifdef CONFIG_TOUCH_WAKE
 		if (!device_is_suspended())
 #endif
-		    {
+        {
 			input_report_key(devdata->input_dev,
-					 devdata->pdata->keycode[scancode],
-					 !(data & UPDOWN_EVENT_MASK));
-		    }
+                             devdata->pdata->keycode[scancode],
+                             !(data & UPDOWN_EVENT_MASK));
+        }
 #if defined(CONFIG_TOUCH_WAKE) || defined(CONFIG_BLD)
 		if (!(data & UPDOWN_EVENT_MASK))
-		    {
+        {
+#ifdef CONFIG_BLD			
+			touchkey_pressed();
+#endif
 #ifdef CONFIG_TOUCH_WAKE
 			touch_press();
 #endif
-		    }
+        }
 #endif
 	} else {
 #ifdef CONFIG_TOUCH_WAKE
 		if (!device_is_suspended())
 #endif
-		    {
+        {
 			for (i = 0; i < devdata->pdata->keycode_cnt; i++)
 			    input_report_key(devdata->input_dev,
-					     devdata->pdata->keycode[i],
-					     !!(data & (1U << i)));
-		    }
-
+                                 devdata->pdata->keycode[i],
+                                 !!(data & (1U << i)));
+        }
+        
 #if defined(CONFIG_TOUCH_WAKE) || defined(CONFIG_BLD)
 		for (i = 0; i < devdata->pdata->keycode_cnt; i++)
- 
-			input_report_key(devdata->input_dev,
-				devdata->pdata->keycode[i],
-				!!(data & (1U << i)));
-
-#if defined(CONFIG_TOUCH_WAKE) || defined(CONFIG_BLD)
-		for (i = 0; i < devdata->pdata->keycode_cnt; i++)
-		    {
+        {
 			if(!!(data & (1U << i)))
-			    {
+            {
 #ifdef CONFIG_BLD			
 				touchkey_pressed();
-
-		    {
-			if(!!(data & (1U << i)))
-			    {
+#endif
 #ifdef CONFIG_TOUCH_WAKE
 				touch_press();
 #endif
 				break;
-			    }
-		    }
+            }
+        }
 #endif
 	}
-
+    
 	input_sync(devdata->input_dev);
 err:
 	return IRQ_HANDLED;
 }
-
 static irqreturn_t touchkey_interrupt_handler(int irq, void *touchkey_devdata)
 {
 	struct cypress_touchkey_devdata *devdata = touchkey_devdata;
@@ -516,7 +498,7 @@ static struct bld_implementation cypress_touchkey_bld =
 	.enable = cypress_touchkey_bld_enable,
 	.disable = cypress_touchkey_bld_disable,
     };
-
+#endif
 
 #ifdef CONFIG_TOUCH_WAKE
 static void cypress_touchwake_disable(void)
@@ -683,6 +665,7 @@ static int cypress_touchkey_probe(struct i2c_client *client,
 #ifdef CONFIG_BLD
 	blddevdata = devdata;
 	register_bld_implementation(&cypress_touchkey_bld);
+#endif
 
 #ifdef CONFIG_TOUCH_WAKE
 	touchwakedevdata = devdata;
