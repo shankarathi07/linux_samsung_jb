@@ -575,7 +575,7 @@ config PN544
 	help
 	  NXP PN544 Near Field Communication controller support.
 
-<<<<<<< HEAD
+
 config GENERIC_BLN
        bool "Generic BLN support for backlight notification"
        default y
@@ -588,12 +588,12 @@ config BLD
        default y
        help
          Say Y here to enable Backlight Dimmer
-=======
+
 config TOUCH_WAKE
        bool "Support for Touch Wake"
        default y
        help
          Say Y here to enable Touch Wake
->>>>>>> 6c876d5... Added Touch Wake version 1.
+
 
 endif # MISC_DEVICES

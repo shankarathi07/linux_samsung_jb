@@ -76,7 +76,6 @@ static struct cypress_touchkey_devdata *blddevdata;
 
 #ifdef CONFIG_TOUCH_WAKE
 static struct cypress_touchkey_devdata *touchwakedevdata;
- ... .
 #endif
 
 static int i2c_touchkey_read_byte(struct cypress_touchkey_devdata *devdata,
@@ -218,7 +217,6 @@ static irqreturn_t touchkey_interrupt_thread(int irq, void *touchkey_devdata)
 		    {
 #ifdef CONFIG_TOUCH_WAKE
 			touch_press();
- ... .
 #endif
 		    }
 #endif
@@ -253,7 +251,6 @@ static irqreturn_t touchkey_interrupt_thread(int irq, void *touchkey_devdata)
 			    {
 #ifdef CONFIG_TOUCH_WAKE
 				touch_press();
- ... .
 #endif
 				break;
 			    }
@@ -576,7 +573,6 @@ static struct touchwake_implementation cypress_touchwake =
 	.enable = cypress_touchwake_enable,
 	.disable = cypress_touchwake_disable,
     };
- ... .
 #endif
 
 static int cypress_touchkey_probe(struct i2c_client *client,
@@ -691,7 +687,6 @@ static int cypress_touchkey_probe(struct i2c_client *client,
 #ifdef CONFIG_TOUCH_WAKE
 	touchwakedevdata = devdata;
 	register_touchwake_implementation(&cypress_touchwake);
- ... .
 #endif
 
 	return 0;
