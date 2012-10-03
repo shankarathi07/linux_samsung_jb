@@ -28,10 +28,10 @@
 
 #ifdef CONFIG_BLD
 #include <linux/bld.h>
+#endif
 
 #ifdef CONFIG_TOUCH_WAKE
 #include <linux/touch_wake.h>
-
 #endif
 
 #define OBJECT_TABLE_START_ADDRESS	7
@@ -334,6 +334,7 @@ static void report_input_data(struct mxt224_data *data)
 		    {
 			touchkey_pressed();
 		    }
+#endif
 
 #ifdef CONFIG_TOUCH_WAKE
 		if (!device_is_suspended())
