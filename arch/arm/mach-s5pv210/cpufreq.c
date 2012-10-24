@@ -482,14 +482,14 @@ static int s5pv210_target(struct cpufreq_policy *policy,
 		if (index != L6) {
 			/*
 			 * DMC0 : 166Mhz
-			 * DMC1 : 220Mhz
+			 * DMC1 : 200Mhz
 			 */
 			s5pv210_set_refresh(DMC0, 166000);
 			s5pv210_set_refresh(DMC1, 200000);
 		} else {
 			/*
 			 * DMC0 : 83Mhz
-			 * DMC1 : 110Mhz
+			 * DMC1 : 100Mhz
 			 */
 			s5pv210_set_refresh(DMC0, 83000);
 			s5pv210_set_refresh(DMC1, 100000);
